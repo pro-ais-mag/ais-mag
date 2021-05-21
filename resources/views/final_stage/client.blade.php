@@ -1,0 +1,332 @@
+@extends((Auth::user()->position == 'Administrator') ? 'administrator' : 'alluser')
+@section('content')
+@if (Session::has('message'))
+    <div class="alert alert-info">{{ Session::get('message') }}</div>
+@endif
+<div class="card-header py-1">
+                <h4 class="m-0 font-weight-bold text-primary">Final Costing. - {{$key}}</h4>
+                <input type="hidden" name="track" id="track" value="{{$key}}">
+</div>
+@foreach($neo_client as $client)
+<div class="row">
+    <div class="btn-group">
+    
+        <a href="/print-final-notation/{{$client->Key_Ref}}" class="btn btn-primary btn-sm" title="Notification Of Diffrence" target="_blank">Notification Of Differance</a>
+        <!--<a href="#" class="btn btn-warning btn-sm" title="Alignment" style="margin-left:5px;">W / Alignment</a>-->
+        <a href="#" class="btn btn-success btn-sm release_register" title="Released" style="margin-left:5px;">Released Register</a>
+        <a href="/print-client-invoice/{{$client->Key_Ref}}" class="btn btn-info btn-sm" title="Invoice To Client" style="margin-left:5px;" target="_blank">Invoice To Client</a>
+        <a href="#" class="btn btn-danger btn-sm final_stage_additionals" data-id="{{$client->Key_Ref}}" title="Additionals" style="margin-left:5px;">Additionals</a>
+        <!--<a href="#" class="btn btn-danger btn-sm" title="Sign Off" style="margin-left:5px;">Sign Off</a>-->
+        
+        <button class="btn btn-warning btn-sm dropdown-toggle btn-float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" style="margin-left:5px;">
+                                    Print Previews
+        </button>
+        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/print-final-costing-total/{{$client->Key_Ref}}" target="_blank">No Water Mark</a>
+            <a class="dropdown-item" href="/print-final-costing-all-figure/{{$client->Key_Ref}}" target="_blank">All in Figure</a>
+            <a class="dropdown-item" href="/print-final-costing-no-extra/{{$client->Key_Ref}}" target="_blank">No Extra</a>
+            <a class="dropdown-item" href="/print-time-sheet/{{$client->Key_Ref}}" target="_blank">Time Sheet</a>
+        </div>                           
+
+        <div class="dropdown mr-1">
+    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:5px;">
+      View More
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item rfc_modals" data-id="{{$client->Key_Ref}}" href="#">RFC</a>
+      <a class="dropdown-item purchase_modals" data-id="{{$client->Key_Ref}}" href="#">POP</a>
+      <a class="dropdown-item statements_modals" data-id="{{$client->Key_Ref}}" href="#">Statement</a>
+      <a class="dropdown-item" href="/print-consumables/{{$client->Key_Ref}}" target="_blank">Consumables</a>
+      <a class="dropdown-item" href="/print-itemized/{{$client->Key_Ref}}" target="_blank">Itemized Consumables</a>
+      <a class="dropdown-item" href="/print-release-payment/{{$client->Key_Ref}}" target="_blank">Pay Receipt</a>
+      <a class="dropdown-item" href="/print-clearance-certificate/{{$client->Key_Ref}}" target="_blank">MAG Clearance</a>
+      <a class="dropdown-item" href="/print-taxi-clearance/{{$client->Key_Ref}}" target="_blank">S.A Taxi Clearance</a>
+      <a class="dropdown-item" href="/print-old-mutual/{{$client->Key_Ref}}" target="_blank">Omnisure Clearance</a>
+      <a class="dropdown-item" href="/print-client-note/{{$client->Key_Ref}}" target="_blank">Notes</a>
+      
+    </div>
+    
+  </div>
+        
+        @if($check_signed->isEmpty() && $sign==0)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input signed" type="checkbox" id="signed" name="signed" data-id="{{$client->Key_Ref}}" disabled>
+            <label class="form-check-label" for="signed">
+            Signed
+            </label>
+        </div>
+        </div>
+        @elseif(!$check_signed->isEmpty() && $sign==0)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input signed" type="checkbox" id="signed" name="signed" data-id="{{$client->Key_Ref}}" checked='true' disabled>
+            <label class="form-check-label" for="signed">
+            Signed
+            </label>
+        </div>
+        </div>
+        @elseif($check_signed->isEmpty() && $sign==1)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input signed" type="checkbox" id="signed" name="signed" data-id="{{$client->Key_Ref}}">
+            <label class="form-check-label" for="signed">
+            Signed
+            </label>
+        </div>
+        </div>
+        @elseif(!$check_signed->isEmpty() && $sign==1)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input signed" type="checkbox" id="signed" name="signed" data-id="{{$client->Key_Ref}}" checked>
+            <label class="form-check-label" for="signed">
+            Signed
+            </label>
+        </div>
+        </div>
+        @endif
+
+        @if($check_closed->isEmpty() && $close==0)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input closed" type="checkbox" id="closed" name="closed" data-id="{{$client->Key_Ref}}" disabled>
+            <label class="form-check-label" for="close">
+            Close Record
+            </label>
+        </div>
+        </div>
+        @elseif($check_closed->isEmpty() && $close==1)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input closed" type="checkbox" id="closed" name="closed" data-id="{{$client->Key_Ref}}">
+            <label class="form-check-label" for="close">
+            Close Record
+            </label>
+        </div>
+        </div>
+        @elseif(!$check_closed->isEmpty() && $close==0)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input closed" type="checkbox" id="closed" name="closed" data-id="{{$client->Key_Ref}}" checked='true' disabled>
+            <label class="form-check-label" for="closed">
+            Close Record
+            </label>
+        </div>
+        </div>
+        @elseif(!$check_closed->isEmpty() && $close==1)
+        <div>
+        <div class="form-check md" style="margin-left:10px;">
+            <input class="form-check-input closed" type="checkbox" id="closed" name="closed" data-id="{{$client->Key_Ref}}" checked="true">
+            <label class="form-check-label" for="closed">
+            Close Record
+            </label>
+        </div>
+        </div>
+        @endif        
+    </div>    
+</div><br>
+<div class="row" style="margin-bottom:10px;">
+
+  <!--- # COMMENT OUT
+  <a href="#" class="btn btn-dark btn-sm final_notes" data-id="{{$client->Key_Ref}}">Notes</a>
+  <a href="#" class="btn btn-dark btn-sm final_docs" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Documents</a>
+  <a href="#" class="btn btn-dark btn-sm final_update_client" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Client Details</a>
+  <a href="#" class="btn btn-dark btn-sm final_wheel_alignment" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Wheel Alignment</a>
+  <a href="#" class="btn btn-dark btn-sm final_photos" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Photos</a>
+  <a href="#" class="btn btn-dark btn-sm final_ordering" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Ordering</a>
+  --->
+
+  <!-- #ADDED THE BACK BUTTON. FOR SIMPPLE REDIRECTION -->
+  <a href="javascript:history.go(-1)" class="btn btn-danger btn-sm">Back</a>  
+  <a href="#" class="btn btn-dark btn-sm final_notes" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Notes</a>
+  <a href="#" class="btn btn-dark btn-sm final_docs" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Documents</a>
+  <a href="#" class="btn btn-dark btn-sm final_update_client" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Client Details</a>
+  <a href="#" class="btn btn-dark btn-sm final_wheel_alignment" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Wheel Alignment</a>
+  <!--
+  <a href="#" class="btn btn-dark btn-sm final_photos" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Photos</a>
+  -->
+  <button type="button" class="btn btn-dark btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:5px;">
+      Photos
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="SECURITY"  href="#">Security Photos  [ {{$security_photo_count}} ]</a>
+      <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="FINAL STAGE" href="#">Final Photos [ {{$final_photo_count}} ]</a>
+    <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="ADDITIONAL" href="#">Additional Photos  [ {{$additional_photo_count}} ]</a>
+    <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="WORK IN PROGRESS" href="#">WIP Photos [ {{$wip_photo_count}} ]</a>
+     
+    </div>
+
+
+  
+  <a href="#" class="btn btn-dark btn-sm final_ordering" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Ordering</a>
+  <a href="#" class="btn btn-dark btn-sm final_rate" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Rates</a>
+  
+  <div class="dropdown mr-1">
+    <button class="btn btn-dark btn-sm dropdown-toggle btn-float-right" type="button" id="dropdownMenuShortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" style="margin-left:5px;">
+                                      Shortcuts
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuShortcuts">
+        <a class="dropdown-item" href="/customer-care-client-details/{{$client->Key_Ref}}">Invoice Client</a>
+        <a class="dropdown-item" href="/view-precosting/{{$client->Key_Ref}}" >Ordering Parts</a>
+        <a class="dropdown-item" href="/assessor" >Assessor</a>
+        <a class="dropdown-item" href="/viewQuotation/{{$client->Key_Ref}}">Approved Quote</a>
+    </div> 
+
+  </div> 
+
+                   
+  
+</div>
+<div class="row">
+    <div class="form-group">
+    
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Repairer</span>
+     </div>
+       <input type="text" name="repairer" id="repairer" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1"  style="font-size:10px;" value="Motor Accident Group">
+     </div>
+    </div>
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Client</span>
+     </div>
+       <input type="text" name="name_last" id="name_last" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Fisrt_Name}} {{$client->Last_Name}}" style="font-size:10px;width:250px;">
+     </div>
+    </div>
+
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Reg No</span>
+     </div>
+       <input type="text" name="reg" id="reg" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Reg_NO}}"  style="font-size:10px;">
+     </div>
+    </div>
+
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Vehicle</span>
+     </div>
+       <input type="text" name="veh" id="veh" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Model}}" style="font-size:10px;">
+     </div>
+    </div>
+</div><br>
+<div class="row" style="margin-top:-25px;margin-bottom:-25px;">
+<div class="form-group">
+<div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Assessor</span>
+     </div>
+       <input type="text" name="assessed" id="assessed" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Assessor}}" style="font-size:10px;">
+     </div>
+</div>
+
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Claim No</span>
+     </div>
+       <input type="text" name="claim" id="claim" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Claim_NO}}" style="font-size:10px;">
+     </div>
+    </div>
+
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Ref No</span>
+     </div>
+       <input type="text" name="ref" id="ref" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1" value="{{$client->Key_Ref}}" style="font-size:10px;">
+     </div>
+    </div>
+    
+    <!--Start-->
+    <div class="form-group" style="margin-left:20px;">
+    <div class="input-group sm" id="dob_span">
+     <div class="input-group-prepend">
+      <span class="input-group-text sm" id="basic-addon1" style="height:25px;font-size:10px;">Date</span>
+     </div>
+     <input type="date" name="final_date" id="final_date" style="font-size:10px;" value="{{$client->Date}}" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1">
+
+      <!--
+      <input type="date" name="final_date" id="final_date" style="font-size:10px;" default value="{{$client->Date}}" onload="date_value()" class="form-control form-control-sm font-sm"  aria-describedby="basic-addon1">
+      -->
+     </div>
+    </div>                        
+    <!--End-->
+    @php $dates=$client->Date;@endphp
+</div>
+<!--End of-->
+@endforeach
+<br>
+<table class="table table-dark table-sm table-hover" style="background-color:#161c20;">
+    <thead style="font-size:10px;">
+                <tr>
+                <th>#</th>
+                        <th>Description</th>
+                        <th>Oper</th>
+                        <th colspan="2">Landing Price</th>
+                        <th>Nett Mark-Up</th>
+                        <th>Mark-Up Only</th>
+                        <th>Betterment</th>
+                        <th>Saving</th>
+                        <th>Additional</th>
+                        <th>Quoted Price</th>
+                        <th>Actual Price</th>
+                </tr>
+    </thead>      
+        <tbody style="font-weight:bold;">
+
+     @php echo $table;@endphp
+    </tbody>
+</table>
+
+<!-- Release Modal-->
+
+<div class="modal fade" role="dialog" id="release_register" name="release_register">
+<form id="register-form" method="GET" action="/print-release-register" target="_blank">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+            <h5 class="modal-title" id="lineManagerModalHead" style="color:white;">Release Register</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+            </div>
+            <div class="modal-body">
+            
+            <div class="form-group row">
+            <div class="col-sm-12">
+            <label for="date1">FROM:</label>    
+            <input class="form-control form-control-sm" type="date" id="date1" name="date1" required/>
+            </div>
+            </div>    
+
+            <div class="form-group row">
+            <div class="col-sm-12">
+            <label for="date2">TO:</label>    
+            <input class="form-control form-control-sm" type="date" id="date2" name="date2" required/>
+            </div>    
+            </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success btn-sm">Print Register</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<script>
+/**
+function date_value(){
+  var date='@php echo $dates;@endphp';
+  $("#final_date").attr("setDate",date);
+  alert("Neo Menoe's Nonsense");
+  //$("#todays-date").attr("value", today);
+}
+**/
+</script>
+@endsection

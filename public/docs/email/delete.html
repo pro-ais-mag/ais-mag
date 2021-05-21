@@ -1,0 +1,35 @@
+ <a href="#" class="btn btn-dark btn-sm final_notes" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Notes</a>
+  <a href="#" class="btn btn-dark btn-sm final_docs" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Documents</a>
+  <a href="#" class="btn btn-dark btn-sm final_update_client" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Client Details</a>
+  <a href="#" class="btn btn-dark btn-sm final_wheel_alignment" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Wheel Alignment</a>
+  <!--
+  <a href="#" class="btn btn-dark btn-sm final_photos" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Photos</a>
+  -->
+  <button type="button" class="btn btn-dark btn-sm dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:5px;">
+      Photos
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="SECURITY"  href="#">Security Photos  [ {{$security_photo_count}} ]</a>
+      <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="FINAL STAGE" href="#">Final Photos [ {{$final_photo_count}} ]</a>
+    <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="ADDITIONAL" href="#">Additional Photos  [ {{$additional_photo_count}} ]</a>
+    <a class="dropdown-item final_photos" data-id="{{$client->Key_Ref}}" data-category="WORK IN PROGRESS" href="#">WIP Photos [ {{$wip_photo_count}} ]</a>
+     
+    </div>
+
+
+  
+  <a href="#" class="btn btn-dark btn-sm final_ordering" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Ordering</a>
+  <a href="#" class="btn btn-dark btn-sm final_rate" data-id="{{$client->Key_Ref}}" style="margin-left:10px;">Rates</a>
+  
+  <div class="dropdown mr-1">
+    <button class="btn btn-dark btn-sm dropdown-toggle btn-float-right" type="button" id="dropdownMenuShortcuts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" style="margin-left:5px;">
+                                      Shortcuts
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuShortcuts">
+        <a class="dropdown-item" href="/customer-care-client-details/{{$client->Key_Ref}}">Invoice Client</a>
+        <a class="dropdown-item" href="/view-precosting/{{$client->Key_Ref}}" >Ordering Parts</a>
+        <a class="dropdown-item" href="/assessor" >Assessor</a>
+        <a class="dropdown-item" href="/viewQuotation/{{$client->Key_Ref}}">Approved Quote</a>
+    </div> 
+
+  </div> 

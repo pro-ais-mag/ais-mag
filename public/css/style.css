@@ -1,0 +1,347 @@
+* {
+	outline: none;
+}
+
+body {
+	background-color: #f4f4f4;
+}
+
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus,
+select:focus {
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.overlay {
+    position: fixed;
+	top: 0;
+	background: rgba(255,255,255, 0.65) url(../img/loading.gif) no-repeat center;
+	z-index: 99999;
+	display: none;
+}
+
+#wrapper.toggled .overlay {
+    position: fixed;
+    margin-right: -250px;
+	top: 0;
+	display: none;
+}
+
+.nopadding {
+	padding: 0px;
+}
+
+.card {
+	background-color: #fcfcfc;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 10px;
+}
+
+.modal-underlay {
+	width: 100%;
+	height: 100%;
+    position: fixed;
+	top: 0;
+	background: rgba(0,0,0, 0.05);
+	z-index: 99999;
+	left: 250px;
+	display: none;
+}
+
+.blur {
+	filter: blur(2px);
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.modal-box {
+	width: 700px;
+	height: auto;
+	background-color: #fff;
+	position: fixed;
+	left: 50%;
+	margin-left: -350px;
+	top: -1000px;
+	z-index: 9998;
+	padding: 20px;
+	box-shadow: 0px 0px 200px #999;
+	border-radius: 0px 0px 5px 5px;
+}
+
+.modal-box h1 {
+	color: rgba(57,120,179,1.00);
+	padding: 0px;
+	margin: 0px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #f2f2f2;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.input-group-addon i {
+	display: block;
+	width: 18px;
+	text-align: center;
+	font-size: 14px;
+}
+
+select option {
+	padding: 5px;
+	line-height: 30px;
+}
+
+.table tbody tr:hover {
+	background: url(../img/bg-row-hover.png) repeat-x center;
+}
+
+.clock {
+	margin: 40px;
+	border-radius: 100%;
+	box-shadow: 0px 0px 0px 5px rgba(255,255,255,0.25);
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.clock:hover, .clock.pulse {
+	box-shadow: 0px 0px 0px 10px rgba(255,255,255,0.25);
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.clock .first-half {
+	height: 85px;
+	background-color: #fff;
+	border-radius: 170px 170px 0 0;
+	text-align: center;
+	padding-top: 22px;
+}
+
+.clock .first-half .hours {
+	color: #369ED0;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.clock .first-half .minutes {
+	color: #369ED0;
+	font-size: 25px;
+	font-weight: bold;
+	z-index: 1;
+}
+
+.clock .first-half .full-date {
+	color: #999;
+}
+
+
+
+.clock .second-half {
+	height: 85px;
+	background-color: #369ED0;
+	border-radius: 0 0 170px 170px;
+	padding-top: 10px;
+}
+
+.clock .second-half .degrees {
+	font-size: 25px;
+	text-align: center;
+}
+
+.clock .second-half .weather-text {
+	text-align: center;
+	font-size: 80%;
+	text-transform: capitalize;
+	text-wrap: normal;
+	width: 80%;
+}
+
+.clock .seconds {
+	height: 5px;
+	background: #eee;
+}
+
+.clock .seconds .second-counter {
+	display: block;
+	height: 5px;
+	background: rgba(18,255,0,1.00);
+	width: 65%;
+}
+
+.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+	outline: none;
+}
+
+.tab-pane {
+	padding: 10px;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+.spacer {
+	height: 20px;
+	content:"&nbsp;";
+}
+
+legend {
+	font-size: 16px;
+	color: #999;
+}
+
+.row {
+	margin-bottom: 20px;
+}
+
+.loading_image {
+	min-height: 100px;
+	width: 100px;
+	height: 100px;
+}
+
+.patient_overview {
+	border: 1px solid #ddd;
+	background-color: #fefefe;
+	padding: 10px;
+	margin: 10px;
+	margin-top: 0;
+	border-radius: 3px;
+}
+
+.patient_overview h1 {
+	color: #1B7ABF;
+	border-bottom: 1px solid #eee;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 10px;
+	font-size: 18px;
+}
+
+.patient_overview tr {
+	border-bottom: 1px dashed #ddd;
+	font-size: 12px;
+}
+
+.patient_overview tr td {
+	padding: 5px;
+}
+
+.tab-pane {
+	background-color: #fff;
+}
+
+.profile-right {
+	
+}
+
+.table .acc_type {
+	display: inline-block;
+	float: right;
+	width: 75px;
+	text-align: left;
+}
+
+ @-moz-keyframes clock-bg-anim /* Firefox */
+{
+	0%   {background: #E0AA23;}
+	10%   {background: #CD410B;}
+	20%   {background: #EBDB02;}
+	30%   {background: #ADFC12;}
+	40%   {background: #14C744;}
+	50%   {background: #35CFD1;}
+	60%   {background: #0EB2D4;}
+	70%   {background: #0B72BD;}
+	80%   {background: #8166F3;}
+	90%   {background: #C417DC;}
+	100%   {background: #F40C45;}
+}
+
+	@-webkit-keyframes clock-bg-anim /* Safari and Chrome */
+{
+	0%   {background: #E0AA23;}
+	10%   {background: #CD410B;}
+	20%   {background: #EBDB02;}
+	30%   {background: #ADFC12;}
+	40%   {background: #14C744;}
+	50%   {background: #35CFD1;}
+	60%   {background: #0EB2D4;}
+	70%   {background: #0B72BD;}
+	80%   {background: #8166F3;}
+	90%   {background: #C417DC;}
+	100%   {background: #F40C45;}
+}
+	
+@media(max-width:768px) {
+	.modal-underlay {
+		left: 0;
+		width: 100%;
+	}
+}
+
+.has-search .form-control {
+	padding-right: 2.375rem;
+	width:180px;
+	margin-left: 820px;
+	margin-bottom: -15px;
+  }
+  
+  .has-search .form-control-feedback {
+	position: absolute;
+	z-index: 2;
+	display: block;
+	width: 80px;
+	height: 2.375rem;
+	line-height: 2.375rem;
+	text-align: center;
+	pointer-events: none;
+	color: #aaa;
+	
+  }
+ .blue{
+	 background-color: #337ab7;
+	 color: white;
+	 text-align: center;
+ }
+
+ .green{
+	 background-color:#5cb85c ;
+	 color: white;
+	 text-align: center;
+ }
+
+ .red{
+	 background-color:#d9534f ;
+	 color: white;
+	 text-align: center;
+ }

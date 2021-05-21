@@ -1,0 +1,214 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+ body {
+    overflow-x: hidden;
+ }
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    background-color: #3978B3;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+	display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+#sidebar-wrapper .bottom {
+    vertical-align: center;
+	color:white;
+	width: 250px;
+	background: #3978B3;
+}
+
+#sidebar-wrapper .bottom h1 {
+	font-size: 14px;
+	text-transform: uppercase;
+	color: rgba(255,255,255,0.85);
+	background-color: rgba(255,255,255,0.15);
+	border-top: 1px solid rgba(255,255,255,0.25);
+	border-bottom: 1px solid rgba(255,255,255,0.25);
+	padding: 10px;
+	margin: 0;
+	margin-bottom: 5px;
+}
+	
+
+#sidebar-wrapper .bottom .shortcuts a {
+	display: block;
+	float: left;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	color: rgba(255,255,255,0.7);
+	border: 1px solid rgba(255,255,255,0.5);
+	background-color: rgba(255,255,255,0.15);
+	margin: 10px;
+	text-align: center;
+	border-radius: 100%;
+	font-size: 18px;
+}
+
+#sidebar-wrapper .bottom .shortcuts a:hover {
+	color: rgba(255,255,255,1);
+	border: 1px solid rgba(255,255,255,1);
+	background-color: rgba(255,255,255,0.5);
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+.page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled .page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+	z-index: 100;
+	background:#3978B3;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sidebar-nav li {
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+	border-bottom: 1px solid rgba(255,255,255, 0.25);
+	border-left: 5px solid transparent;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.sidebar-nav li a i {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #F3F3F3;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus,
+.sidebar-nav li a.selected {
+    text-decoration: none;
+	box-shadow: none;
+	background-color: rgba(255,255,255,0.1);
+	outline: none;
+	border-left: 5px solid rgba(255,255,255,0.75);
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 80px;
+    font-size: 18px;
+    line-height: 80px;
+	border-bottom: 1px solid rgba(255,255,255, 0.35);
+	background-image: url(../img/);
+    
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 35%;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    .page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled .page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+	
+}
+
+@media(max-width:768px) {
+	#sidebar-wrapper .bottom {
+		display: none;
+	}
+	
+	.sidebar-nav {
+		display: none;
+	}
+}
